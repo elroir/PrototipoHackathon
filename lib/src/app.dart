@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:prototipohackathon/src/pages/contactos_page.dart';
 import 'package:prototipohackathon/src/pages/datos_page.dart';
+import 'package:prototipohackathon/src/pages/estadisticas_page.dart';
 import 'package:prototipohackathon/src/pages/map_page.dart';
 
 class AppMain extends StatefulWidget {
@@ -24,7 +24,7 @@ class _AppMainState extends State<AppMain> {
     switch ( paginaActual){
       case 0: return MapSample();
       case 1: return DatosPage();
-      case 2: return ContactosPage();
+      case 2: return EstadisticasPage();
     }
 
   }
@@ -43,12 +43,12 @@ class _AppMainState extends State<AppMain> {
             title:Text('Mapa')
         ),
         BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            title: Text('Datos')
+            icon: Icon(Icons.info),
+            title: Text('Informacion')
         ),
         BottomNavigationBarItem(
-            icon: Icon(Icons.contacts),
-            title: Text('Contactos')
+            icon: Icon(Icons.insert_chart),
+            title: Text('Estadisticas')
         ),
       ],
     );

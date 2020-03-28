@@ -6,7 +6,7 @@ class ContactosPage extends StatelessWidget{
     // TODO: implement build
     return Scaffold(
         appBar: AppBar(
-          title: Text('Contactos'),
+          title: Text('Covid-19 Bolivia'),
           backgroundColor: Colors.green,
         ),
         body: ListView(

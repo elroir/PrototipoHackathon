@@ -20,8 +20,8 @@ class BotonesPage extends StatelessWidget {
             title:Text('Mapa')
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            title: Text('Datos')
+            icon: Icon(Icons.info),
+            title: Text('Informacion')
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.contacts),
