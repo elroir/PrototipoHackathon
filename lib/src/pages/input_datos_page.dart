@@ -31,12 +31,13 @@ class _InputPageState extends State<InputPage> {
           _crearFecha(context),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.arrow_back_ios),
-        onPressed: (){
-          Navigator.pop(context);
-        },
-      ),
+        floatingActionButton: FloatingActionButton.extended(
+          onPressed: (){
+            Navigator.pop(context);
+          },
+          backgroundColor: Colors.blue,
+          label: Text('Guardar'),
+          icon: Icon(Icons.save),)
     );
   }
 

@@ -11,10 +11,12 @@ class DatosPage extends StatelessWidget{
           title: Text('Covid-19 Bolivia'),
           backgroundColor: Colors.green,
         ),
-       body: Column(
-         crossAxisAlignment: CrossAxisAlignment.start,
+       body: ListView(
+
          children: <Widget>[
+           SizedBox(height:15.0,),
            Text('Datos Personales: ',style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold,)),
+           SizedBox(height:10.0,),
            Text('Nombre\s: ',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,)),
            Text('Gerson',style: TextStyle(fontSize: 13)),
            Text('Apellidos: ',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,)),
@@ -23,6 +25,7 @@ class DatosPage extends StatelessWidget{
            Text('02/Mar/1998',style: TextStyle(fontSize: 13)),
            Text('Tipo de sangre: ',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold,)),
            Text('',style: TextStyle(fontSize: 13)),
+           SizedBox(height:10.0,),
            FlatButton(
              child: Text('Introducir datos'),
              color: Colors.green,
@@ -37,12 +40,15 @@ class DatosPage extends StatelessWidget{
            ),
            Divider(),
            Text('Sintomas del Covid-19: ',style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold,)),
+           SizedBox(height:10.0 ,),
            Text('Fiebre mayor a 37.5',style: TextStyle(fontSize: 16,)),
            Text('Tos',style: TextStyle(fontSize: 16,)),
            Text('Dolor de garganta',style: TextStyle(fontSize: 16,)),
            Text('Dificultad para respirar(casos graves)',style: TextStyle(fontSize: 16,)),
            //_informacion('Sintomas del Covid-19','Fiebre mayor a 37.5, Tos , Dolor de garganta, Dificultad para respirar(casos graves)'),
            Divider(),
+           Text('Si usted presenta estos sintomas, por favor llamar a: ',style: TextStyle(fontSize: 19,fontWeight: FontWeight.bold,)),
+           SizedBox(height:10.0 ,),
            _contacto(),
          ],
        ),

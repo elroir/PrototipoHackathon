@@ -1,6 +1,8 @@
 import 'dart:async';
 
+
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:prototipohackathon/src/pages/mapa_page.dart';
 
@@ -12,7 +14,7 @@ class MapSample extends StatefulWidget {
 
 class MapSampleState extends State<MapSample> {
   Completer<GoogleMapController> _controller = Completer();
-
+  final Map<String, Marker> _markers = {};
   static final CameraPosition _kGooglePlex = CameraPosition(
     target: LatLng(-17.7862892, -63.1811714),
     zoom: 12.4746,
@@ -28,8 +30,8 @@ class MapSampleState extends State<MapSample> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.my_location),
-            onPressed: (){},
-          )
+            onPressed: _getLocation
+          ),
         ],
       ),
 
@@ -38,6 +40,7 @@ class MapSampleState extends State<MapSample> {
         mapType: MapType.normal,
 
         initialCameraPosition: _kGooglePlex,
+        markers: _markers.values.toSet(),
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
@@ -53,10 +56,29 @@ class MapSampleState extends State<MapSample> {
             Navigator.push(context, route);
           },
         backgroundColor: Colors.green,
-          label: Text('Mapa de los casos'),
+          label: Text('Casos'),
           icon: Icon(Icons.new_releases),),
 
     );
+
+  }
+  void _getLocation() async {
+    var currentLocation = await Geolocator()
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.best);
+
+    setState(() {
+      _markers.clear();
+      final marker = Marker(
+        markerId: MarkerId("curr_loc"),
+        position: LatLng(currentLocation.latitude, currentLocation.longitude),
+        infoWindow: InfoWindow(title: 'Your Location'),
+      );
+      _markers["Current Location"] = marker;
+      CameraPosition(
+        target: LatLng(currentLocation.latitude, currentLocation.longitude),
+        zoom: 14.4746,
+      );
+    });
   }
 
 
