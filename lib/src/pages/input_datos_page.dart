@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:prototipohackathon/src/models/informacion_model.dart';
+import 'package:prototipohackathon/src/utils/utils.dart' as utils;
 
 class InputPage extends StatefulWidget {
 
@@ -7,7 +9,9 @@ class InputPage extends StatefulWidget {
 }
 
 class _InputPageState extends State<InputPage> {
-   String _nombre;
+
+   final formKey = GlobalKey<FormState>();
+   InformacionModel informacion = new InformacionModel();
    String _fecha = '';
    TextEditingController _inputFieldDateController = new TextEditingController();
     @override
@@ -18,22 +22,30 @@ class _InputPageState extends State<InputPage> {
         title: Text('Datos'),
         backgroundColor: Colors.green,
       ),
-      body: ListView(
-        padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 2.0),
-        children: <Widget>[
-          SizedBox(height: 20),
-          _crearInput('Nombres','Nombrdes'),
-          Divider(),
-          _crearInput('Apellidos','Apellidos'),
-          Divider(),
-          _crearInput('ORH+','Tipo de sangre'),
-          Divider(),
-          _crearFecha(context),
-        ],
+      body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(horizontal: 10.0,vertical: 2.0) ,
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: <Widget>[
+              SizedBox(height: 20),
+              _crearInputString('Nombres','Nombres',informacion.nombres),
+              Divider(),
+              _crearInputString('Apellidos','Apellidos',informacion.apellidos),
+              Divider(),
+              _crearInputNumeric('Cedula de identidad','Ci',informacion.ci),
+              Divider(),
+              _crearFecha(context),
+            ],
+          ),
+        ),
       ),
+
+
         floatingActionButton: FloatingActionButton.extended(
           onPressed: (){
-            Navigator.pop(context);
+            _submit();
+
           },
           backgroundColor: Colors.blue,
           label: Text('Guardar'),
@@ -41,9 +53,10 @@ class _InputPageState extends State<InputPage> {
     );
   }
 
-  Widget _crearInput(String HintT,String LabelT) {
+  Widget _crearInputString(String HintT,String LabelT,String InitialVal) {
 
-      return TextField(
+      return TextFormField(
+        initialValue: InitialVal,
         textCapitalization: TextCapitalization.words,
         decoration: InputDecoration(
           border: OutlineInputBorder(
@@ -52,13 +65,32 @@ class _InputPageState extends State<InputPage> {
           hintText: HintT,
           labelText: LabelT
         ),
-        onChanged: (valor){
-          setState(() {
-            _nombre = valor;
-          });
-        },
       );
   }
+
+   Widget _crearInputNumeric(String HintT,String LabelT, int InitialVal) {
+
+     return TextFormField(
+
+       textCapitalization: TextCapitalization.words,
+       keyboardType: TextInputType.number,
+       decoration: InputDecoration(
+           border: OutlineInputBorder(
+               borderRadius: BorderRadius.circular(20.0)
+           ),
+           hintText: HintT,
+           labelText: LabelT
+       ),
+       onSaved: (value)=> informacion.ci = int.parse(value),
+       validator: (value) {
+         if(utils.isNumeric(value)) {
+           return null;
+         } else {
+           return 'Ingrese solo numeros';
+         }
+       },
+     );
+   }
    Widget _crearFecha(BuildContext context) {
 
      return TextField(
@@ -93,6 +125,15 @@ class _InputPageState extends State<InputPage> {
           _inputFieldDateController.text = _fecha;
         });
       }
+   }
+
+   void _submit(){
+     if (!formKey.currentState.validate())  return;
+
+     formKey.currentState.save();
+
+     Navigator.pop(context);
+
    }
 
 
