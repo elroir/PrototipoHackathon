@@ -87,7 +87,7 @@ class _MapaPageState extends State<MapaPage> {
       urlTemplate: "https://api.mapbox.com/v4/"
           "{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}",
       additionalOptions: {
-        'accessToken': 'pk.eyJ1IjoiZWxyb2lyIiwiYSI6ImNrOGF2NmU3cDAyNXUzZGthZzk0dHlxcHgifQ.0WJEopvEOpOJEUsQ5_wdNA',
+        'accessToken': '<accesToken>',
         'id': 'mapbox.$tipoMapa',
         //Tipos de mapa: streets,dark,light,outdoors,satellite
       }
